@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:18
+    container_name: QuickServiceRest
+    environment:
+      - POSTGRES_USER=QSR
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=QuickServiceRestaurante
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+volumes:
+  pgdata:
