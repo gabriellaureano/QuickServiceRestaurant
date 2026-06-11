@@ -1,12 +1,6 @@
 CREATE TABLE tb_mesa (
-    id INT PRIMARY KEY,
-    status VARCHAR(20) NOT NULL,
-    CONSTRAINT chk_status_mesa CHECK (status IN ('OCUPADA', 'LIVRE'))
+    id BIGSERIAL PRIMARY KEY,
+    status VARCHAR(20) NOT NULL CHECK (status IN ('OCUPADA', 'LIVRE'))
 );
 
-INSERT INTO tb_mesa (id, status) VALUES (1, 'OCUPADA');
-INSERT INTO tb_mesa (id, status) VALUES (2, 'OCUPADA');
-INSERT INTO tb_mesa (id, status) VALUES (3, 'OCUPADA');
-INSERT INTO tb_mesa (id, status) VALUES (4, 'OCUPADA');
-INSERT INTO tb_mesa (id, status) VALUES (5, 'OCUPADA');
-
+INSERT INTO tb_mesa (id,status) VALUES (1, 'OCUPADA'), (2, 'OCUPADA'), (3, 'OCUPADA'), (4, 'OCUPADA'), (5, 'OCUPADA');
