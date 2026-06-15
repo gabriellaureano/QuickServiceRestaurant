@@ -19,6 +19,7 @@ public class Mesa {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     StatusMesa statusMesa = StatusMesa.OCUPADA;
 
 }
