@@ -5,11 +5,11 @@ import com.QuickService.Restaurant.Atendimento.repository.MesaRepository;
 import com.QuickService.Restaurant.Pedido.domain.Pedido;
 import com.QuickService.Restaurant.Pedido.dto.PedidoRequest;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
+import com.QuickService.Restaurant.Pedido.exception.MesaNaoEncontradaEx;
 import com.QuickService.Restaurant.Pedido.repository.PedidoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PedidoService {
@@ -26,7 +26,7 @@ public class PedidoService {
         Pedido pedido = new Pedido();
 
         Mesa mesa = mesaRepository.findById(pedidoRequest.mesaId())
-                        .orElseThrow(() -> new RuntimeException("Mesa nao encontrada"));
+                        .orElseThrow(() -> new MesaNaoEncontradaEx("Mesa não encontrada"));
 
         pedido.setMesa(mesa);
         pedido.setObservacao(pedidoRequest.observacao());

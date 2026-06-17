@@ -3,6 +3,7 @@ package com.QuickService.Restaurant.Pedido.controller;
 import com.QuickService.Restaurant.Pedido.dto.PedidoRequest;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
 import com.QuickService.Restaurant.Pedido.service.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +19,13 @@ public class PedidoController {
         this.pedidoService = pedidoService;
     }
 
-    @PostMapping
+    @PostMapping("/pedido")
     @ResponseStatus(HttpStatus.CREATED)
-    public PedidoResponse criarPedido(@RequestBody PedidoRequest pedidoRequest){
+    public PedidoResponse criarPedido(@RequestBody @Valid PedidoRequest pedidoRequest){
         return pedidoService.criarPedido(pedidoRequest);
     }
 
-    @GetMapping
+    @GetMapping("/pedido")
     @ResponseStatus(HttpStatus.OK)
     public List<PedidoResponse> buscarPedidos(){
         return pedidoService.buscarPedidos();
