@@ -1,4 +1,4 @@
-package com.QuickService.Restaurant.Pedido.exception;
+package com.QuickService.Restaurant.infra.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.QuickService.Restaurant.Pedido.exception;
+package com.QuickService.Restaurant.infra.exception;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
