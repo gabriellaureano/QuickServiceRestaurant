@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Optional;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,6 +27,6 @@ public class Pedido {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_pedido")
-    StatusPedido status_pedido = StatusPedido.ANDAMENTO;
+    StatusPedido statusPedido = StatusPedido.ANDAMENTO;
 
 }

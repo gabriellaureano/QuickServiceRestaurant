@@ -39,4 +39,16 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
     }
+
+    @ExceptionHandler(PedidoNaoEncontradoEx.class)
+    public ResponseEntity tratarPedidoNaoEncontrado(PedidoNaoEncontradoEx erro){
+        ErroResponse erroResponse = new ErroResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Pedido Não Encontrado",
+                List.of(erro.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
+    }
 }

@@ -15,7 +15,7 @@ public record PedidoResponse(
                 pedido.getId(),
                 pedido.getMesa().getId(),
                 pedido.getObservacao(),
-                pedido.getStatus_pedido()
+                pedido.getStatusPedido()
         );
     }
 }

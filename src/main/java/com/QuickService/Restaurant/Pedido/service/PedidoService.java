@@ -42,7 +42,7 @@ public class PedidoService {
                         pedido.getId(),
                         pedido.getMesa().getId(),
                         pedido.getObservacao(),
-                        pedido.getStatus_pedido()
+                        pedido.getStatusPedido()
                 ))
                 .toList();
     }

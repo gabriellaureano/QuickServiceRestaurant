@@ -1,0 +1,62 @@
+package com.QuickService.Restaurant.Cozinha.service;
+
+import com.QuickService.Restaurant.Cozinha.dto.FinalizarPedido;
+import com.QuickService.Restaurant.Pedido.domain.Pedido;
+import com.QuickService.Restaurant.Pedido.domain.StatusPedido;
+import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
+import com.QuickService.Restaurant.Pedido.repository.PedidoRepository;
+import com.QuickService.Restaurant.infra.exception.MesaNaoEncontradaEx;
+import com.QuickService.Restaurant.infra.exception.PedidoNaoEncontradoEx;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CozinhaService {
+    private final PedidoRepository pedidoRepository;
+
+    public CozinhaService(PedidoRepository pedidoRepository) {
+        this.pedidoRepository = pedidoRepository;
+    }
+
+    public List<Pedido> findByStatusAndamento(){
+        return pedidoRepository.findByStatusPedido(StatusPedido.ANDAMENTO);
+    }
+
+
+    public List<PedidoResponse> buscarEmAndamento(){
+        return findByStatusAndamento().stream()
+                .map(pedido -> new PedidoResponse(
+                        pedido.getId(),
+                        pedido.getMesa().getId(),
+                        pedido.getObservacao(),
+                        pedido.getStatusPedido()
+                ))
+                .toList();
+    }
+
+    public PedidoResponse atualizarStatusPedido(FinalizarPedido finalizarPedido){
+        Pedido pedidoAtual = pedidoRepository.findById(finalizarPedido.pedidoId())
+                .orElseThrow(()-> new PedidoNaoEncontradoEx("Pedido Não Encontrado"));
+
+        if (!pedidoAtual.getMesa().getId().equals(finalizarPedido.mesaId())){
+            throw new MesaNaoEncontradaEx("MesaId não corresponde a nenhuma mesa existente.");
+        }
+
+        pedidoAtual.setStatusPedido(StatusPedido.PRONTO);
+
+        Pedido pedidoAtualizado = pedidoRepository.save(pedidoAtual);
+
+        return new PedidoResponse(
+                pedidoAtualizado.getId(),
+                pedidoAtualizado.getMesa().getId(),
+                pedidoAtualizado.getObservacao(),
+                pedidoAtualizado.getStatusPedido()
+        );
+
+    }
+
+
+
+
+}
