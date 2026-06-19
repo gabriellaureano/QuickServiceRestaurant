@@ -1,5 +1,7 @@
 package com.QuickService.Restaurant.Cozinha.service;
 
+import com.QuickService.Restaurant.Atendimento.domain.Mesa;
+import com.QuickService.Restaurant.Atendimento.repository.MesaRepository;
 import com.QuickService.Restaurant.Cozinha.dto.FinalizarPedido;
 import com.QuickService.Restaurant.Pedido.domain.Pedido;
 import com.QuickService.Restaurant.Pedido.domain.StatusPedido;
@@ -14,9 +16,11 @@ import java.util.List;
 @Service
 public class CozinhaService {
     private final PedidoRepository pedidoRepository;
+    private final MesaRepository mesaRepository;
 
-    public CozinhaService(PedidoRepository pedidoRepository) {
+    public CozinhaService(PedidoRepository pedidoRepository, MesaRepository mesaRepository) {
         this.pedidoRepository = pedidoRepository;
+        this.mesaRepository = mesaRepository;
     }
 
     public List<Pedido> findByStatusAndamento(){
@@ -53,6 +57,16 @@ public class CozinhaService {
                 pedidoAtualizado.getObservacao(),
                 pedidoAtualizado.getStatusPedido()
         );
+
+    }
+
+    public List<PedidoResponse> buscarPedidosDaMesa(Long id){
+        Mesa mesa = mesaRepository.findById(id)
+                .orElseThrow(() -> new MesaNaoEncontradaEx("Mesa não encontrada"));
+
+        return pedidoRepository.findByMesa(mesa).stream()
+                .map(PedidoResponse::fromEntity)
+                .toList();
 
     }
 
