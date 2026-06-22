@@ -1,10 +1,10 @@
 package com.QuickService.Restaurant.Atendimento.controller;
 
+import com.QuickService.Restaurant.Atendimento.dto.MesaRequest;
+import com.QuickService.Restaurant.Atendimento.dto.MesaResponse;
 import com.QuickService.Restaurant.Atendimento.service.GarcomService;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +21,15 @@ public class GarcomController {
     @GetMapping("/pedidos/prontos")
     public List<PedidoResponse> buscarPedidosProntos(){
         return garcomService.buscarPedidosProntos();
+    }
+
+    @PostMapping("/abertura")
+    public MesaResponse abrirMesa(@RequestBody MesaRequest mesaRequest){
+        return garcomService.addClienteResponsavel(mesaRequest);
+    }
+
+    @GetMapping
+    public List<MesaResponse> buscarMesas(){
+        return garcomService.buscarMesas();
     }
 }

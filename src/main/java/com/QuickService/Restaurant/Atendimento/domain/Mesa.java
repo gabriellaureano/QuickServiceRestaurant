@@ -22,4 +22,6 @@ public class Mesa {
     @Column(name = "status")
     StatusMesa statusMesa = StatusMesa.OCUPADA;
 
+    @JoinColumn(name = "cliente_responsavel")
+    private String clienteResponsavel;
 }

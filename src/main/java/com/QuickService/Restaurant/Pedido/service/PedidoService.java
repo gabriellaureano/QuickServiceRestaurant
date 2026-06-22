@@ -1,12 +1,14 @@
 package com.QuickService.Restaurant.Pedido.service;
 
 import com.QuickService.Restaurant.Atendimento.domain.Mesa;
+import com.QuickService.Restaurant.Atendimento.domain.StatusMesa;
 import com.QuickService.Restaurant.Atendimento.repository.MesaRepository;
 import com.QuickService.Restaurant.Pedido.domain.Pedido;
 import com.QuickService.Restaurant.Pedido.dto.PedidoRequest;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
 import com.QuickService.Restaurant.infra.exception.MesaNaoEncontradaEx;
 import com.QuickService.Restaurant.Pedido.repository.PedidoRepository;
+import com.QuickService.Restaurant.infra.exception.MesaSemClienteEx;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +30,16 @@ public class PedidoService {
         Mesa mesa = mesaRepository.findById(pedidoRequest.mesaId())
                         .orElseThrow(() -> new MesaNaoEncontradaEx("Mesa não encontrada"));
 
-        pedido.setMesa(mesa);
-        pedido.setObservacao(pedidoRequest.observacao());
+        if (mesa.getStatusMesa() == StatusMesa.OCUPADA & mesa.getClienteResponsavel() != null){
+            pedido.setMesa(mesa);
+            pedido.setObservacao(pedidoRequest.observacao());
 
-        var pedidoSalvo = pedidoRepository.save(pedido);
+            var pedidoSalvo = pedidoRepository.save(pedido);
 
-        return PedidoResponse.fromEntity(pedidoSalvo);
+            return PedidoResponse.fromEntity(pedidoSalvo);
+        }else {
+            throw new MesaSemClienteEx("Não é possível lançar pedidos: a mesa não possui um cliente responsável.");
+        }
     }
 
     public List<PedidoResponse> buscarPedidos(){

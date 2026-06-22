@@ -51,4 +51,29 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
     }
+
+    @ExceptionHandler(MesaOcupadaEx.class)
+    public ResponseEntity tratarMesaOcupada(MesaOcupadaEx erro){
+        ErroResponse erroResponse = new ErroResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Mesa Ocupada",
+                List.of(erro.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
+    }
+
+    @ExceptionHandler(MesaSemClienteEx.class)
+    public ResponseEntity tratarMesaSemCliente(MesaOcupadaEx erro){
+        ErroResponse erroResponse = new ErroResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Mesa Sem Cliente",
+                List.of(erro.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
+    }
+
 }

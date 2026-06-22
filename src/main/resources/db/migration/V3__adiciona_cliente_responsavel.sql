@@ -1,0 +1,1 @@
+ALTER TABLE tb_mesa ADD COLUMN cliente_responsavel VARCHAR(255);
