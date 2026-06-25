@@ -24,4 +24,6 @@ public class Mesa {
 
     @JoinColumn(name = "cliente_responsavel")
     private String clienteResponsavel;
+
+    private Integer pedidosAndamento = 0;
 }

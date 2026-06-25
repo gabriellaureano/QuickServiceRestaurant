@@ -4,6 +4,7 @@ import com.QuickService.Restaurant.Atendimento.dto.MesaRequest;
 import com.QuickService.Restaurant.Atendimento.dto.MesaResponse;
 import com.QuickService.Restaurant.Atendimento.service.GarcomService;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,5 +32,10 @@ public class GarcomController {
     @GetMapping
     public List<MesaResponse> buscarMesas(){
         return garcomService.buscarMesas();
+    }
+
+    @PutMapping("/mesa/{mesaId}/finalizar")
+    public ResponseEntity finalizarMesa(@PathVariable Long mesaId){
+        return garcomService.finalizarMesa(mesaId);
     }
 }

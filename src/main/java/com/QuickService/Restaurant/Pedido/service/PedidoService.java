@@ -33,6 +33,8 @@ public class PedidoService {
         if (mesa.getStatusMesa() == StatusMesa.OCUPADA & mesa.getClienteResponsavel() != null){
             pedido.setMesa(mesa);
             pedido.setObservacao(pedidoRequest.observacao());
+            mesa.setPedidosAndamento(mesa.getPedidosAndamento() + 1);
+            mesaRepository.save(mesa);
 
             var pedidoSalvo = pedidoRepository.save(pedido);
 
@@ -47,6 +49,7 @@ public class PedidoService {
                 .map(pedido -> new PedidoResponse(
                         pedido.getId(),
                         pedido.getMesa().getId(),
+                        pedido.getMesa().getClienteResponsavel(),
                         pedido.getObservacao(),
                         pedido.getStatusPedido()
                 ))

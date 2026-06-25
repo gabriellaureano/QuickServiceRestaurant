@@ -6,6 +6,7 @@ import com.QuickService.Restaurant.Pedido.domain.StatusPedido;
 public record PedidoResponse(
         Long id,
         Long Mesa,
+        String clienteResponsavel,
         String observacao,
         StatusPedido statusPedido
 ) {
@@ -14,6 +15,7 @@ public record PedidoResponse(
         return new PedidoResponse(
                 pedido.getId(),
                 pedido.getMesa().getId(),
+                pedido.getMesa().getClienteResponsavel(),
                 pedido.getObservacao(),
                 pedido.getStatusPedido()
         );

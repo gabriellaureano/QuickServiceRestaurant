@@ -1,0 +1,1 @@
+UPDATE tb_mesa SET status = 'LIVRE', cliente_responsavel = NULL, pedidos_andamento = 0;

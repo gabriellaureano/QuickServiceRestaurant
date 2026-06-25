@@ -65,11 +65,23 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MesaSemClienteEx.class)
-    public ResponseEntity tratarMesaSemCliente(MesaOcupadaEx erro){
+    public ResponseEntity tratarMesaSemCliente(MesaSemClienteEx erro){
         ErroResponse erroResponse = new ErroResponse(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 "Mesa Sem Cliente",
+                List.of(erro.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
+    }
+
+    @ExceptionHandler(PedidosEmAndamentoEx.class)
+    public ResponseEntity tratarPedidosEmAndamento(PedidosEmAndamentoEx erro){
+        ErroResponse erroResponse = new ErroResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Pedidos em andamento",
                 List.of(erro.getMessage())
         );
 

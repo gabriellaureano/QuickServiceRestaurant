@@ -33,6 +33,7 @@ public class CozinhaService {
                 .map(pedido -> new PedidoResponse(
                         pedido.getId(),
                         pedido.getMesa().getId(),
+                        pedido.getMesa().getClienteResponsavel(),
                         pedido.getObservacao(),
                         pedido.getStatusPedido()
                 ))
@@ -47,13 +48,17 @@ public class CozinhaService {
             throw new MesaNaoEncontradaEx("MesaId não corresponde a nenhuma mesa existente.");
         }
 
-        pedidoAtual.setStatusPedido(StatusPedido.PRONTO);
 
+        pedidoAtual.setStatusPedido(StatusPedido.PRONTO);
+        pedidoAtual.getMesa().setPedidosAndamento(pedidoAtual.getMesa().getPedidosAndamento() - 1);
+
+        mesaRepository.save(pedidoAtual.getMesa());
         Pedido pedidoAtualizado = pedidoRepository.save(pedidoAtual);
 
         return new PedidoResponse(
                 pedidoAtualizado.getId(),
                 pedidoAtualizado.getMesa().getId(),
+                pedidoAtualizado.getMesa().getClienteResponsavel(),
                 pedidoAtualizado.getObservacao(),
                 pedidoAtualizado.getStatusPedido()
         );
