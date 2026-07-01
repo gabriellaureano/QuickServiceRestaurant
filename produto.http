@@ -1,0 +1,17 @@
+@baseurl = http://localhost:8080
+
+### CRIAR PRODUTO
+
+POST {{baseurl}}/restaurant/produto/criar
+Content-Type: application/json
+
+{
+  "nome": "Filé de Frango Grelhado Executivo",
+  "descricao": "Peito de frango grelhado na chapa, acompanhado de arroz branco soltinho, feijão carioca, batata frita crocante e uma leve salada de alface e tomate.",
+  "preco": 28.50,
+  "categoria": "PRATO_PRINCIPAL"
+}
+
+### BUSCAR PRODUTOS
+
+GET {{baseurl}}/restaurant/produto

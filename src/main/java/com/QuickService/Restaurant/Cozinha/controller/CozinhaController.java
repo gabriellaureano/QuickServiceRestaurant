@@ -27,7 +27,7 @@ public class CozinhaController {
         return cozinhaService.atualizarStatusPedido(request);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{numeroDoPedido}")
     public List<PedidoResponse> buscarPedidosDaMesa(@PathVariable Long id){
         return cozinhaService.buscarPedidosDaMesa(id);
     }

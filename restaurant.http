@@ -1,0 +1,50 @@
+@baseurl = http://localhost:8080
+
+### ABRIR MESA
+
+POST {{baseurl}}/atendimento/abertura
+Content-Type: application/json
+
+{
+  "mesaId" : "1",
+  "nome" : "Gabriel"
+}
+
+### FAZER PEDIDO
+
+POST {{baseurl}}/restaurant/pedido
+Content-Type: application/json
+
+{
+  "mesaId" : "1",
+  "observacao" : "Lasanha"
+}
+
+### FINALIZAR PEDIDO
+
+PUT {{baseurl}}/restaurant/cozinha/finalizar
+Content-Type: application/json
+
+{
+  "numeroDoPedido" : "2",
+  "mesaId" : "1"
+}
+
+### FINALIZAR MESA
+
+PUT {{baseurl}}/atendimento/mesa/1/finalizar
+
+
+
+
+
+
+
+### BUSCAR MESAS
+GET {{baseurl}}/atendimento
+
+### BUSCAR PEDIDOS
+GET {{baseurl}}/restaurant/pedido
+
+
+

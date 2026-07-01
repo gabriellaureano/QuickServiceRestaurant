@@ -41,7 +41,7 @@ public class CozinhaService {
     }
 
     public PedidoResponse atualizarStatusPedido(FinalizarPedido finalizarPedido){
-        Pedido pedidoAtual = pedidoRepository.findById(finalizarPedido.pedidoId())
+        Pedido pedidoAtual = pedidoRepository.findById(finalizarPedido.numeroDoPedido())
                 .orElseThrow(()-> new PedidoNaoEncontradoEx("Pedido Não Encontrado"));
 
         if (!pedidoAtual.getMesa().getId().equals(finalizarPedido.mesaId())){

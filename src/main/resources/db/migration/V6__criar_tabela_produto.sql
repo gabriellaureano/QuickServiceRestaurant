@@ -1,0 +1,8 @@
+CREATE TABLE tb_produto(
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255),
+    preco DECIMAL(10,2) NOT NULL,
+    categoria VARCHAR(35) NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+)

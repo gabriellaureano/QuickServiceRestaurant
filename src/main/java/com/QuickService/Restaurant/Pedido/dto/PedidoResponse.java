@@ -4,7 +4,7 @@ import com.QuickService.Restaurant.Pedido.domain.Pedido;
 import com.QuickService.Restaurant.Pedido.domain.StatusPedido;
 
 public record PedidoResponse(
-        Long id,
+        Long numeroDoPedido,
         Long Mesa,
         String clienteResponsavel,
         String observacao,
