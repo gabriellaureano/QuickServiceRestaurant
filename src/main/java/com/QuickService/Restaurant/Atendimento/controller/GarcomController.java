@@ -1,5 +1,6 @@
 package com.QuickService.Restaurant.Atendimento.controller;
 
+import com.QuickService.Restaurant.Atendimento.domain.HistoricoFechamento;
 import com.QuickService.Restaurant.Atendimento.dto.MesaRequest;
 import com.QuickService.Restaurant.Atendimento.dto.MesaResponse;
 import com.QuickService.Restaurant.Atendimento.service.GarcomService;
@@ -35,7 +36,12 @@ public class GarcomController {
     }
 
     @PutMapping("/mesa/{mesaId}/finalizar")
-    public ResponseEntity finalizarMesa(@PathVariable Long mesaId){
-        return garcomService.finalizarMesa(mesaId);
+    public ResponseEntity fecharConta(@PathVariable Long mesaId){
+        return garcomService.fecharConta(mesaId);
+    }
+
+    @GetMapping("/historico-fechamento")
+    public List<HistoricoFechamento> buscarHistoricoFechamento(){
+        return garcomService.buscarHistoricoFechamento();
     }
 }

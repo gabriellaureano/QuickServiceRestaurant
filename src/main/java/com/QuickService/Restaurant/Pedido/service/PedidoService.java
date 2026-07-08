@@ -3,6 +3,8 @@ package com.QuickService.Restaurant.Pedido.service;
 import com.QuickService.Restaurant.Atendimento.domain.Mesa;
 import com.QuickService.Restaurant.Atendimento.domain.StatusMesa;
 import com.QuickService.Restaurant.Atendimento.repository.MesaRepository;
+import com.QuickService.Restaurant.Cozinha.domain.Produto;
+import com.QuickService.Restaurant.Cozinha.repository.ProdutoRepository;
 import com.QuickService.Restaurant.Pedido.domain.Pedido;
 import com.QuickService.Restaurant.Pedido.dto.PedidoRequest;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
@@ -18,10 +20,12 @@ public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private final MesaRepository mesaRepository;
+    private final ProdutoRepository produtoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository, MesaRepository mesaRepository) {
+    public PedidoService(PedidoRepository pedidoRepository, MesaRepository mesaRepository, ProdutoRepository produtoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.mesaRepository = mesaRepository;
+        this.produtoRepository = produtoRepository;
     }
 
     public PedidoResponse criarPedido(PedidoRequest pedidoRequest){
@@ -33,10 +37,12 @@ public class PedidoService {
         if (mesa.getStatusMesa() == StatusMesa.OCUPADA & mesa.getClienteResponsavel() != null){
             pedido.setMesa(mesa);
             pedido.setObservacao(pedidoRequest.observacao());
+            List<Produto> listaProdutos = produtoRepository.findAllById(pedidoRequest.produtosIds());
+            pedido.setProdutos(listaProdutos);
             mesa.setPedidosAndamento(mesa.getPedidosAndamento() + 1);
-            mesaRepository.save(mesa);
 
             var pedidoSalvo = pedidoRepository.save(pedido);
+            mesaRepository.save(mesa);
 
             return PedidoResponse.fromEntity(pedidoSalvo);
         }else {
@@ -46,13 +52,7 @@ public class PedidoService {
 
     public List<PedidoResponse> buscarPedidos(){
         return pedidoRepository.findAll().stream()
-                .map(pedido -> new PedidoResponse(
-                        pedido.getId(),
-                        pedido.getMesa().getId(),
-                        pedido.getMesa().getClienteResponsavel(),
-                        pedido.getObservacao(),
-                        pedido.getStatusPedido()
-                ))
+                .map(PedidoResponse::fromEntity)
                 .toList();
     }
 }

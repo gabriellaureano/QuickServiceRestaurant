@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "mesaId" : "1",
-  "nome" : "Gabriel"
+  "nome" : "Silva"
 }
 
 ### FAZER PEDIDO
@@ -17,7 +17,8 @@ Content-Type: application/json
 
 {
   "mesaId" : "1",
-  "observacao" : "Lasanha"
+  "produtosIds": [1,1,1,2,2,2,2],
+  "observacao" : "Sem pimenta"
 }
 
 ### FINALIZAR PEDIDO
@@ -26,7 +27,7 @@ PUT {{baseurl}}/restaurant/cozinha/finalizar
 Content-Type: application/json
 
 {
-  "numeroDoPedido" : "2",
+  "numeroDoPedido" : "8",
   "mesaId" : "1"
 }
 
@@ -39,12 +40,13 @@ PUT {{baseurl}}/atendimento/mesa/1/finalizar
 
 
 
-
 ### BUSCAR MESAS
 GET {{baseurl}}/atendimento
 
 ### BUSCAR PEDIDOS
 GET {{baseurl}}/restaurant/pedido
 
+### BUSCAR HISTORICO DE FECHAMENTO
+GET {{baseurl}}/atendimento/historico-fechamento
 
 

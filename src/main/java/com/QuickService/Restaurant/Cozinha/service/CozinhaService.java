@@ -3,6 +3,7 @@ package com.QuickService.Restaurant.Cozinha.service;
 import com.QuickService.Restaurant.Atendimento.domain.Mesa;
 import com.QuickService.Restaurant.Atendimento.repository.MesaRepository;
 import com.QuickService.Restaurant.Cozinha.dto.FinalizarPedido;
+import com.QuickService.Restaurant.Cozinha.dto.ProdutoResponse;
 import com.QuickService.Restaurant.Pedido.domain.Pedido;
 import com.QuickService.Restaurant.Pedido.domain.StatusPedido;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
@@ -30,13 +31,7 @@ public class CozinhaService {
 
     public List<PedidoResponse> buscarEmAndamento(){
         return findByStatusAndamento().stream()
-                .map(pedido -> new PedidoResponse(
-                        pedido.getId(),
-                        pedido.getMesa().getId(),
-                        pedido.getMesa().getClienteResponsavel(),
-                        pedido.getObservacao(),
-                        pedido.getStatusPedido()
-                ))
+                .map(PedidoResponse::fromEntity)
                 .toList();
     }
 
@@ -60,7 +55,9 @@ public class CozinhaService {
                 pedidoAtualizado.getMesa().getId(),
                 pedidoAtualizado.getMesa().getClienteResponsavel(),
                 pedidoAtualizado.getObservacao(),
-                pedidoAtualizado.getStatusPedido()
+                pedidoAtualizado.getStatusPedido(),
+                pedidoAtualizado.getProdutos().stream().map(ProdutoResponse::fromEntity).toList(),
+                null
         );
 
     }

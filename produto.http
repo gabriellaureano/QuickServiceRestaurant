@@ -6,9 +6,9 @@ POST {{baseurl}}/restaurant/produto/criar
 Content-Type: application/json
 
 {
-  "nome": "Filé de Frango Grelhado Executivo",
-  "descricao": "Peito de frango grelhado na chapa, acompanhado de arroz branco soltinho, feijão carioca, batata frita crocante e uma leve salada de alface e tomate.",
-  "preco": 28.50,
+  "nome": "Feijoada Completa",
+  "descricao": "Tradicional feijoada com carnes nobres (carne seca, lombo, costelinha e linguiça calabresa), acompanhada de arroz branco, couve refogada no alho, farofa artesanal e fatias de laranja.",
+  "preco": 38.90,
   "categoria": "PRATO_PRINCIPAL"
 }
 
