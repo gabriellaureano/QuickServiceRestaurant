@@ -13,7 +13,10 @@ import com.QuickService.Restaurant.Pedido.repository.PedidoRepository;
 import com.QuickService.Restaurant.infra.exception.MesaSemClienteEx;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PedidoService {
@@ -37,7 +40,22 @@ public class PedidoService {
         if (mesa.getStatusMesa() == StatusMesa.OCUPADA & mesa.getClienteResponsavel() != null){
             pedido.setMesa(mesa);
             pedido.setObservacao(pedidoRequest.observacao());
-            List<Produto> listaProdutos = produtoRepository.findAllById(pedidoRequest.produtosIds());
+
+            List<Produto> listaProdutos = new ArrayList<>();
+
+            List<Produto> listaProdutosDisponiveis = produtoRepository.findAll();
+
+            Map<Long, Produto> mapaProdutos = listaProdutosDisponiveis.stream()
+                            .collect(Collectors.toMap(Produto::getId,produto -> produto));
+
+            for (Long id : pedidoRequest.produtosIds()){
+                Produto produto = mapaProdutos.get(id);
+                if (produto == null){
+                    new RuntimeException("Produto não encontrado");
+                }
+                listaProdutos.add(produto);
+            }
+
             pedido.setProdutos(listaProdutos);
             mesa.setPedidosAndamento(mesa.getPedidosAndamento() + 1);
 
