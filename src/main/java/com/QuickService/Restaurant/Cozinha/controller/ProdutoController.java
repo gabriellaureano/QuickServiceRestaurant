@@ -3,6 +3,7 @@ package com.QuickService.Restaurant.Cozinha.controller;
 import com.QuickService.Restaurant.Cozinha.dto.ProdutoRequest;
 import com.QuickService.Restaurant.Cozinha.dto.ProdutoResponse;
 import com.QuickService.Restaurant.Cozinha.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ProdutoController {
     }
 
     @PostMapping("/criar")
-    public ProdutoResponse criarProduto(@RequestBody ProdutoRequest produtoRequest){
+    public ProdutoResponse criarProduto(@RequestBody @Valid ProdutoRequest produtoRequest){
         return produtoService.criarProduto(produtoRequest);
     }
 

@@ -11,6 +11,7 @@ import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
 import com.QuickService.Restaurant.infra.exception.MesaNaoEncontradaEx;
 import com.QuickService.Restaurant.Pedido.repository.PedidoRepository;
 import com.QuickService.Restaurant.infra.exception.MesaSemClienteEx;
+import com.QuickService.Restaurant.infra.exception.ProdutoNaoEncontradoEx;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class PedidoService {
             for (Long id : pedidoRequest.produtosIds()){
                 Produto produto = mapaProdutos.get(id);
                 if (produto == null){
-                    new RuntimeException("Produto não encontrado");
+                    new ProdutoNaoEncontradoEx("Produto não encontrado");
                 }
                 listaProdutos.add(produto);
             }

@@ -88,4 +88,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
     }
 
+    @ExceptionHandler(ProdutoNaoEncontradoEx.class)
+    public ResponseEntity tratarProdutoNaoEncontrado(ProdutoNaoEncontradoEx erro){
+        ErroResponse erroResponse = new ErroResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Produto Não Encontrado",
+                List.of(erro.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroResponse);
+    }
+
 }

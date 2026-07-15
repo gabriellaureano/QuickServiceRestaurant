@@ -5,6 +5,7 @@ import com.QuickService.Restaurant.Atendimento.dto.MesaRequest;
 import com.QuickService.Restaurant.Atendimento.dto.MesaResponse;
 import com.QuickService.Restaurant.Atendimento.service.GarcomService;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class GarcomController {
     }
 
     @PostMapping("/abertura")
-    public MesaResponse abrirMesa(@RequestBody MesaRequest mesaRequest){
+    public MesaResponse abrirMesa(@RequestBody @Valid MesaRequest mesaRequest){
         return garcomService.addClienteResponsavel(mesaRequest);
     }
 

@@ -3,6 +3,7 @@ package com.QuickService.Restaurant.Cozinha.controller;
 import com.QuickService.Restaurant.Cozinha.dto.FinalizarPedido;
 import com.QuickService.Restaurant.Pedido.dto.PedidoResponse;
 import com.QuickService.Restaurant.Cozinha.service.CozinhaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class CozinhaController {
     }
 
     @PutMapping("/finalizar")
-    public PedidoResponse finalizarPedido(@RequestBody FinalizarPedido request){
+    public PedidoResponse finalizarPedido(@RequestBody @Valid FinalizarPedido request){
         return cozinhaService.atualizarStatusPedido(request);
     }
 
